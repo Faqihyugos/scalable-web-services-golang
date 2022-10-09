@@ -1,0 +1,129 @@
+basePath: /
+definitions:
+  models.Item:
+    properties:
+      description:
+        type: string
+      itemCode:
+        type: string
+      lineItemId:
+        type: integer
+      orderID:
+        type: integer
+      quantity:
+        type: integer
+    type: object
+  models.Order:
+    properties:
+      customerName:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/models.Item'
+        type: array
+      orderedAt:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: faqihyugos@gmail.com
+    name: Order API CRUD
+    url: http://www.swagger.io/support
+  description: Assignment 2 Go Programming Language
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: API Assignment 2 Hacktiv8
+  version: "1.0"
+paths:
+  /Orders/{orderId}:
+    delete:
+      consumes:
+      - application/json
+      description: delete Order
+      parameters:
+      - description: order_id
+        in: path
+        name: order_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: delete Order
+      tags:
+      - Orders
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: list all of Order
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Order'
+            type: array
+      summary: list all of Order
+      tags:
+      - Orders
+    post:
+      consumes:
+      - application/json
+      description: create an Order
+      parameters:
+      - description: create Order
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Order'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: create an Order
+      tags:
+      - Orders
+  /orders/{orderId}:
+    put:
+      consumes:
+      - application/json
+      description: update Order
+      parameters:
+      - description: order_id
+        in: path
+        name: order_id
+        required: true
+        type: string
+      - description: request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: update Order
+      tags:
+      - Orders
+swagger: "2.0"
